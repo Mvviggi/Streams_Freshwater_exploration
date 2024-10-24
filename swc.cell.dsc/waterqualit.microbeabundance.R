@@ -205,3 +205,6 @@ TNlinerPlot
 
 print(swc.toc.mic)
 
+categories<- unique(swc.lab$analyte)
+typeofAnalyte<- length(categories)
+print(categories)
