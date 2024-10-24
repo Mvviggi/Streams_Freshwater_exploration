@@ -61,22 +61,21 @@ str(MicroAbundance)
 
 #plotting all years sites together, facet wrap:
 {
-MicAbund.years <-ggplot(data = ShortAbundanceDF, aes(x=Month, y= microAbMl, color= Year, group = Year))+
+MicAbund.years <-ggplot(data = ShortAbundanceDF, aes(x=date, y= log10Abundance, 
+                      color= Year, group = Year))+
   geom_point(size =3)+
   geom_line(size=1) +
   theme(axis.text.x = element_text(hjust = 1))+
-  facet_wrap(~siteID, nrows = 2, scale = "free")
-  
-MicAbund.years +
+    scale_x_date(date_breaks = "1 month",
+                 date_labels = "%b-%y")+
+  facet_wrap(~siteID, nrow = 2, scale = "free_y") +
   labs(title = "Microbial Abundance per mL per month from 2017 to 2022")+
   theme(plot.title = element_text(hjust =0.5),
-        axis.text.x = element_text(hjust = 1, size= 14),
+        axis.text.x = element_text(angle = 45, hjust = 1, size= 9),
         axis.text.y = element_text(size= 14),
         axis.title.x = element_text(size=14),
         axis.title.y = element_text(size=14))
-
-
-MicAb.CUPEbar + theme(axis.text=element_text(size = 12),
+MicAbund.years + theme(axis.text=element_text(size = 12),
                       axis.title=element_text(size=16))
 
 #using dataframe with outliers excluded. 
@@ -112,9 +111,11 @@ sum(is.na(CUPEmicrobe))
 
 #plotting 
 MicAb.CUPE<- CUPEmicrobe %>%
-  ggplot(aes(x=Month, y= log10Abundance))+
+  ggplot(aes(x=date, y= log10Abundance))+
   geom_point(size =4)+
   geom_smooth(size=1) +
+  scale_x_date(date_breaks = "1 month",
+               date_labels = "%b-%y") +
   facet_wrap(~Year, nrow = 2, scale = "free")
   # scale_x_date(date_breaks = "1 month",
   #              date_labels = "%b-%Y") +
@@ -133,12 +134,26 @@ MicAb.GUIL<- GUILmicrobe %>%
   geom_line(size=1) +
   scale_x_date(date_breaks = "1 month",
                date_labels = "%b-%y") +
-  theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   labs(title = "GUIL Microbial abundance over time")+
-  theme(plot.title = element_text(hjust =0.5))
-MicAb.GUIL + theme(axis.text=element_text(size = 12),
+  theme(plot.title = element_text(hjust =0.5), size= 14)
+MicAb.GUIL + theme(axis.text.x = element_text(hjust = 1, size= 9),
+               axis.title=element_text(size=16))
+
+MicAb.CUPE<- CUPEmicrobe %>%
+  filter(siteID == c("CUPE"))%>%
+  ggplot(aes(x=date, y= log10Abundance, color= Year, group = Year))+
+  geom_point(size =4)+
+  geom_line(size=1) +
+  scale_x_date(date_breaks = "1 month",
+               date_labels = "%b-%y") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "CUPE Microbial abundance over time")+
+  theme(plot.title = element_text(hjust =0.5), size= 14)
+MicAb.CUPE + theme(axis.text=element_text(size = 1),
                    axis.title=element_text(size=16))
  
+
 
 #different visualization
 #plotting bar plos

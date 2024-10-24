@@ -20,7 +20,7 @@ library(gridExtra)
 #                    package= 'expanded', check.size=F, release = 'current')
 # #write.csv(dsc$dsc_fieldData, "C:/Users/mviggiano/Documents/Github/Fisheries/dsc.csv")
 
-if(dir.exists("C:/Users/nickerson/")){
+if(dir.exists("C:/Users/mviggiano/")){
   token <- read.csv("~/APItoken.txt",encoding = "UTF-8",header = T,sep = "\t")
   NEONportal_APItoken <- token$APItoken[token$site=="NEONportal_internal"]
   Sys.setenv(NEON_PAT=NEONportal_APItoken)
