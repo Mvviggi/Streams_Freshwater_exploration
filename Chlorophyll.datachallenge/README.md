@@ -1,7 +1,6 @@
 - 👋 Hi, I’m Maria Viggiano
 - 👀 I’m interested in data science and data analytics
 - 🌱 I’m currently working in creating a portfolio with my programming skills and share completed projects.
--  
 - 📫 How to reach me ... mvviggi@gmail.com; vv.beltro11@gmail.com
 
 <!---
