@@ -1,8 +1,7 @@
-- 👋 Hi, I’m @Mvviggi
-- 👀 I’m interested in ...streams and aquatic life
-- 🌱 I’m currently learning ... programming
-- 💞️ I’m looking to collaborate on ...NEON 
-- 📫 How to reach me ... mvviggi@gmail.com; mviggiano@battelleecology.org
+- 👋 Hi, I’m Maria Viggiano
+- 👀 I’m interested in data science and data analytics
+- 🌱 I’m currently working in creating a portfolio with my programming skills and share completed projects.
+- 📫 How to reach me ... mvviggi@gmail.com; vv.beltro11@gmail.com
 
 <!---
 Mvviggi/Mvviggi is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
