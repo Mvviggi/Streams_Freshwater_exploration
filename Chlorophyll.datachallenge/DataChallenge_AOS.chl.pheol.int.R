@@ -1,6 +1,7 @@
 #periphyton and seston chlorophyll data
 #@Maria Viggiano
-setwd("C:/Users/mviggiano/Documents/Github/Mvviggi")
+setwd("C:/Users/mvvb8/Documents/Github/Mvviggi")
+getwd()
 #library packages used
 library(tidyverse)
 library(dplyr)
@@ -8,12 +9,13 @@ library(neonUtilities)
 library(neonOS)
 library(ggplot2)
 library(skimr)
+library(dplyr)
 #periphyton data product and select sites of interest
 dpid ="DP1.20163.001"
 site.list = c("CUPE", "GUIL", "LEWI", "POSE", "WALK")
 #use neonUtilities to extract data product tables
 chlorophyll<- loadByProduct(dpid, site = site.list,
-                            startdate="2022-01", enddate="2023-05",
+                            startdate="2018-01", enddate="2024-11",
                             package= 'expanded', check.size=F, include.provisional= TRUE)
 
 #add tables in the Global Environment
@@ -23,9 +25,9 @@ chla.ext<-removeDups(data=alg_algaeExternalLabDataPerSample,
                      variables=variables_20163) #for this to work, package needs to be 'expanded'
 
 #check for duplicates in field and domain tables
-alg.dom<-removeDups(data=alg_domainLabChemistry,
+domain<-removeDups(data=alg_domainLabChemistry,
                     variables= variables_20163)
-alg.field<-removeDups(data=alg_fieldData,
+field<-removeDups(data=alg_fieldData,
                       variable=variables_20163)
 
 #join tables for domain and field data- need them to use, benthic area, field volume, lab volume.
@@ -41,63 +43,59 @@ summary(chla.ext)
 skim(chla.ext)
 
 #join tables external lab and fielddom
-f.d.e<- merge.data.frame(fielddom, chla.ext, by = "sampleID", all= FALSE)
-str(f.d.e)
-skim(f.d.e)
-skim(f.d.e) %>% summary()
+fieldomext<- merge.data.frame(fielddom, chla.ext, by = "sampleID", all= FALSE)
+str(fieldomext)
+skim(fieldomext)
+skim(fieldomext) %>% summary()
 
-
-#join tables external lab and fielddom
-f.d.e<- merge.data.frame(fielddom, chla.ext, by = "sampleID", all= FALSE)
-str(f.d.e)
-skim(f.d.e)
-skim(f.d.e) %>% summary()
 
 #df for seston samples only
-seston<-f.d.e %>%
+seston<-fieldomext %>%
   filter(algalSampleType == "seston")
 ##reduce seston table to show necessary columns for seston samples
-seston.sm<- seston %>%
+seston.short<- seston %>%
   select(siteID.x, collectDate.x, parentSampleID, boutNumber, 
          habitatType, analysisType, fieldSampleVolume, domainFilterVolume, analyteConcentration)
-#check seston.sm dataframe
-View(seston.sm)
-str(seston.sm)
+#check seston.short dataframe
+View(seston.short)
+str(seston.short)
 
 #Seston table: before plotting- change the collectDate and boutNumber to character
-seston.sm$year<- as.character(seston.sm$collectDate.x, "%Y")
-seston.sm$boutNumber<- as.factor(seston.sm$boutNumber)
-seston.median$boutNumber<- as.factor(seston.median$boutNumber)
-seston.median$year<- as.character(seston.median$year)
+seston.short$year<- as.character(seston.short$collectDate.x, "%Y")
+seston.short$boutNumber<- as.factor(seston.short$boutNumber)
+seston.short$boutNumber<- as.factor(seston.short$boutNumber)
+seston.short$year<- as.character(seston.short$year)
 
 #######Visualizations for seston#########
 
 ##plotting for seston
-seston.plot<- seston.sm %>%
+seston.plot<- seston.short %>%
   ggplot(aes(x= boutNumber, y = analyteConcentration, color = year, group = year))+
-  geom_point() +
+  geom_point() + geom_line()+
   facet_wrap(~siteID.x, scale = "free") 
 seston.plot + ggtitle(" Seston chlorophyll concentration by bouts and per site")
 
 #realized seston has two replicates per sampling bout as seen in the seston.plot - clean up to get median values.
-seston.median<- seston.sm %>%
+seston.median<- seston.short %>%
   group_by(year, siteID.x, boutNumber,parentSampleID ) %>%
   summarize(medianchla= median(analyteConcentration))
 
 #graph including both years 2022 and bout 1 of 2023
 seston.Allmed<- seston.median %>%
-  ggplot(aes(x= boutNumber, y = medianchla, color= year, fill= year))+
+  ggplot(aes(x= boutNumber, y = medianchla, color= year, group= year))+
   geom_point(size=1.5,
              shape='square')+
+  geom_line()+
   facet_wrap(~siteID.x, scale = "free")
 seston.Allmed + ggtitle("Stream seston chlorophyll-a by boutNumber and year per site")
-
-#plotting by median seston chlorophyll 2022
-seston.plotmed22<- seston.median %>% filter(year == 2022) %>%
-  ggplot(aes(x= boutNumber, y = medianchla))+
-  geom_point(color = "blue")+
-  facet_wrap(~siteID.x, scale = "free")
-seston.plotmed22
+############################**** Worked until here****##################
+############################*
+# #plotting by median seston chlorophyll 2022
+# seston.plotmed22<- seston.median %>% filter(year == 2022) %>%
+#   ggplot(aes(x= boutNumber, y = medianchla))+
+#   geom_point(color = "blue")+
+#   facet_wrap(~siteID.x, scale = "free")
+# seston.plotmed22
 
 
 #create separate tables for benthic periphyton and seston

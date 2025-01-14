@@ -90,9 +90,6 @@ if(max_dups > 1){
 }
 
 
-
-
-
 # extract year from date, add it as a new column 
 inv_fieldData <- inv_fieldData %>%
   mutate(
