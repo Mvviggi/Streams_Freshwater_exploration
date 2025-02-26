@@ -3,7 +3,7 @@
 --
 **Mvviggi/Mvviggi** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
-###Here are some ideas to get you started:
+
 
 * 🔭 analyzing multiple NEON data products to assess how lotic aquatic life responds to environmental changes and nutrient export.
 * 🌱 I’m currently learning to data manage complex Big Data and improve skills in data analytics
