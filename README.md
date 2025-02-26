@@ -8,7 +8,7 @@
 * 🔭 analyzing multiple NEON data products to assess how lotic aquatic life responds to environmental changes and nutrient export.
 * 🌱 I’m currently learning to data manage complex Big Data and improve skills in data analytics
 * 👯 I’m looking to collaborate with the scientific community to present findings that could have come from the effects of hurricanes in Puerto Rico 
-* 🤔 I’m looking for help with feedback and suggestions to improve coding and create impactful, clear and effective data visualization. 
+* 🤔 I’m looking for feedback and suggestions to improve coding and create impactful, clear and effective scripts and data visualizations. 
 * 💬 Ask me about anything! I am open to work and collaborate!
 * 📫 How to reach me: vv.beltro11@gmail.com
 * 😄 Pronouns: she/her
